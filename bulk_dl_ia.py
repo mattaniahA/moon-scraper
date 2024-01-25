@@ -24,29 +24,28 @@ def get_metadata(id: str):
 
 
 all_items = get_items('collection:navobsy')
-
 blueprints = filter_by_prefix(all_items, ['USNOA_010BP'])
 reflector_40 = get_items('collection:navobsy AND instrument:"USNO 40-inch reflector"')
 moon = get_items('collection:navobsy AND instrument:"Watts Moon Camera"')
 solar_eclipse = get_items('collection:navobsy AND instrument:"-foot camera" AND title:"solar eclipse"')
 chart_plates = get_items('collection:navobsy AND series:"03 - Chart Plates"')
 
-
-print('-----lengths-----')
-print('all',len(all_items))
-print('blueprints',len(blueprints))
-print('reflector_40',len(reflector_40))
-print('moon',len(moon))
-print('solar_eclipse',len(solar_eclipse))
-print('chart_plates',len(chart_plates))
-
-filtered = len(blueprints)+len(reflector_40)+len(moon)+len(solar_eclipse)+len(chart_plates)
-print('filtered',filtered)
-print()
-print()
+# print('-----lengths-----')
+# print('all',len(all_items))
+# print('blueprints',len(blueprints))
+# print('reflector_40',len(reflector_40))
+# print('moon',len(moon))
+# print('solar_eclipse',len(solar_eclipse))
+# print('chart_plates',len(chart_plates))
+# filtered = len(blueprints)+len(reflector_40)+len(moon)+len(solar_eclipse)+len(chart_plates)
+# print('filtered',filtered)
+# print()
+# print()
 
 
-curr_item = 'USNOA_010BP_40IN_0123'
-get_metadata(curr_item)
 
-# ia.download(curr_item, formats="JPEG", destdir='downloads', verbose=True)
+for item_id in chart_plates:
+    # item = get_metadata(item_id)
+    ia.download(item_id, formats="JPEG", destdir='downloads/chart_plates', verbose=True)
+    
+# item = get_metadata('USNOA_010BP_40IN_0123')
