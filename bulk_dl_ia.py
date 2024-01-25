@@ -44,8 +44,14 @@ chart_plates = get_items('collection:navobsy AND series:"03 - Chart Plates"')
 
 
 
-for item_id in chart_plates:
-    # item = get_metadata(item_id)
-    ia.download(item_id, formats="JPEG", destdir='downloads/chart_plates', verbose=True)
-    
-# item = get_metadata('USNOA_010BP_40IN_0123')
+for item_id in solar_eclipse:
+    item = ia.get_item(item_id)
+    file_name = '04_01_0000' + item_id[-2:] + '_P1.jpg'
+    file = item.get_file(file_name)
+    print(file)
+    file.download('downloads/solar_eclipse/'+file_name)
+
+
+# for item_id in chart_plates:
+#     ia.download(item_id, formats="JPEG", destdir='downloads/chart_plates', verbose=True)
+
