@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set the path to your original image directory
-original_image_dir="/Users/mattaniah/repos/moon-scraper/downloads/solar_eclipse"
+original_image_dir="/Users/mattaniah/repos/moon-scraper/downloads/blueprints/tan"
 
 # Set the path to the new compressed image directory
-compressed_image_dir="/Users/mattaniah/repos/moon-scraper/downloads/solar_eclipse_min"
+compressed_image_dir="/Users/mattaniah/repos/moon-scraper/downloads/blueprints/tan_min"
 
 # Check if the original directory exists
 if [ -d "$original_image_dir" ]; then
