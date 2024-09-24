@@ -2,8 +2,8 @@ import cv2
 import os
 
 # Set your input and output directories
-input_directory = 'downloads/solar_eclipse'
-output_directory = 'edits/solar_crop2'
+input_directory = 'downloads/lo_res/solar_eclipse'
+output_directory = 'edits/solar_crop'
 
 # Create the output directory if it doesn't exist
 os.makedirs(output_directory, exist_ok=True)

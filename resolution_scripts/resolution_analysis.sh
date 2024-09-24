@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Specify the directory containing the images
-IMAGE_DIR="/Users/mattaniah/repos/moon-scraper/downloads/blueprints"
+IMAGE_DIR="/Users/mattaniah/repos/moon-scraper/downloads/hi_res/blueprints"
 
 # Change directory to the specified image directory
 cd "$IMAGE_DIR" || exit
@@ -21,17 +21,14 @@ for file in *.{jpg,jpeg,png,gif}; do
     width=$(echo "$resolution" | cut -d ' ' -f 1)
     height=$(echo "$resolution" | cut -d ' ' -f 2)
 
-    # Calculate the total resolution
     total_resolution=$((total_resolution + width * height))
 
     # Store the resolution in the array
     resolution_array+=("$width $height")
 done
 
-# Sort the resolution array
 sorted_resolution_array=($(echo "${resolution_array[@]}" | tr ' ' '\n' | sort -n))
 
-# Calculate min, max, median, and average resolution
 min_resolution=$(echo "${sorted_resolution_array[0]}")
 max_resolution=$(echo "${sorted_resolution_array[-1]}")
 median_index=$(((${#sorted_resolution_array[@]} + 1) / 2 - 1))

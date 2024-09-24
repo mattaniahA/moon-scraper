@@ -54,19 +54,19 @@ for item_id in limited_list:
     
     if file.size > 0:
         print(file)
-        file.download('downloads/blueprints/'+file_name)
+        file.download('downloads/hi_res/blueprints/'+file_name)
     else:
         print('!!!file doesnt exist!!!')
 
 
 # for item_id in reflector_40:
 #     item = ia.get_item(item_id)
-#     ia.download(item_id, formats="JPEG", destdir='downloads/reflector_40/', verbose=True)
+#     ia.download(item_id, formats="JPEG", destdir='downloads/hi_res/reflector_40/', verbose=True)
 
 
 # for item_id in moon:
 #     item = ia.get_item(item_id)
-#     ia.download(item_id, formats="JPEG", destdir='downloads/marginal_moon/', verbose=True)
+#     ia.download(item_id, formats="JPEG", destdir='downloads/hi_res/marginal_moon/', verbose=True)
 
 
 # for item_id in solar_eclipse:
@@ -74,9 +74,9 @@ for item_id in limited_list:
 #     file_name = '04_01_0000' + item_id[-2:] + '_P1.jpg'
 #     file = item.get_file(file_name)
 #     print(file)
-#     file.download('downloads/solar_eclipse/'+file_name)
+#     file.download('downloads/hi_res/solar_eclipse/'+file_name)
 
 
 # for item_id in chart_plates:
-#     ia.download(item_id, formats="JPEG", destdir='downloads/chart_plates', verbose=True)
+#     ia.download(item_id, formats="JPEG", destdir='downloads/hi_res/chart_plates', verbose=True)
 
