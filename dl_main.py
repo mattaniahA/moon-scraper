@@ -1,3 +1,5 @@
+import os
+import shutil
 import internetarchive as ia
 from dl_date_helper import get_formatted_date, format_date  # Import functions from dl_date_helper.py
 
@@ -37,64 +39,96 @@ def print_lens():
     print()
     print()
 
-all_items = get_items('collection:navobsy')
-blueprints = filter_by_prefix(all_items, ['USNOA_010BP'])
-reflector_40 = get_items('collection:navobsy AND instrument:"USNO 40-inch reflector"')
-moon = get_items('collection:navobsy AND instrument:"Watts Moon Camera"')
+# all_items = get_items('collection:navobsy')
+# blueprints = filter_by_prefix(all_items, ['USNOA_010BP'])
+# reflector_40 = get_items('collection:navobsy AND instrument:"USNO 40-inch reflector"')
+# moon = get_items('collection:navobsy AND instrument:"Watts Moon Camera"')
 chart_plates = get_items('collection:navobsy AND series:"03 - Chart Plates"')
-solar_eclipse = get_items('collection:navobsy AND instrument:"camera" AND title:"solar eclipse"')
-solar_eclipse2_plate = get_items('collection:navobsy AND -instrument:"camera" AND title:"solar eclipse" AND title:"plate"')
+# solar_eclipse = get_items('collection:navobsy AND instrument:"camera" AND title:"solar eclipse"')
+# solar_eclipse2_plate = get_items('collection:navobsy AND -instrument:"camera" AND title:"solar eclipse" AND title:"plate"')
 # print_lens()
 
 
+##############################################################
+####################  MAIN SOLAR ECLIPSE  ####################
+##############################################################
 
-####################  MAIN SOLAR ECLIPSE
-for item_id in solar_eclipse:
-    item = ia.get_item(item_id)
-    metadata = item.metadata
+# for item_id in solar_eclipse:
+#     item = ia.get_item(item_id)
+#     metadata = item.metadata
     
-    # Access specific metadata fields
+#     # Access specific metadata fields
+#     print("item_id:", item_id)
+#     # print("Title:", metadata.get('title'))
+#     print("Date:", metadata.get('date'))
+#     print("    ")
+#     print("---------------------------------------------------------------------------------")
+
+#     date_str = metadata.get('date', 'unknown date')
+#     formatted_date = format_date(date_str)  # Format the date to YYYY_MM_DD
+
+#     # Downloading the file
+#     file_name = '04_01_0000' + item_id[-2:] + '_P1.jpg'
+#     file = item.get_file(file_name)
+#     file.download(f'downloads/hi_res/0_METADATAAA/solar_eclipse/{formatted_date}-{item_id}.jpg')
+
+# for item_id in solar_eclipse2_plate:
+#     print("item_id:", item_id)
+#     # print_all_metadata(item_id)
+#     item = ia.get_item(item_id)
+#     metadata = item.metadata
+
+#     formatted_date = get_formatted_date(metadata)
+#     print("Date:", metadata.get('date'))
+#     print("Formatted Date:", formatted_date)
+#     print("Description:", metadata.get('description'))
+
+#     print("    ")
+#     print("---------------------------------------------------------------------------------")
+
+#     if "USNOGP" in item_id:
+#         file_name = '04_01_0000' + item_id[-2:] + '_P1.jpg'
+#     else:
+#         file_name = item_id.split('_')[0] + ".jpg"
+#         if item_id == "g086_20211021" or  item_id == "g122_20211124":
+#             file_name = item_id.split('_')[0] + "_rotated.jpg"
+
+#     file = item.get_file(file_name)
+#     file.download(f'downloads/hi_res/0_METADATAAA/solar_eclipse/{formatted_date}-{item_id}.jpg')
+
+
+
+#######################################################
+####################  GRID PLATES  ####################
+#######################################################
+for item_id in chart_plates:
     print("item_id:", item_id)
-    # print("Title:", metadata.get('title'))
-    print("Date:", metadata.get('date'))
-    print("    ")
-    print("---------------------------------------------------------------------------------")
-
-    date_str = metadata.get('date', 'unknown date')
-    formatted_date = format_date(date_str)  # Format the date to YYYY_MM_DD
-
-    # Downloading the file
-    file_name = '04_01_0000' + item_id[-2:] + '_P1.jpg'
-    file = item.get_file(file_name)
-    file.download(f'downloads/hi_res/0_METADATAAA/solar_eclipse/{formatted_date}-{item_id}.jpg')
-
-
-####################  SECONDARY SOLAR ECLIPSE
-for item_id in solar_eclipse2_plate:
-    print("item_id:", item_id)
-    # print_all_metadata(item_id)
     item = ia.get_item(item_id)
     metadata = item.metadata
 
     formatted_date = get_formatted_date(metadata)
-    print("Date:", metadata.get('date'))
     print("Formatted Date:", formatted_date)
-    print("Description:", metadata.get('description'))
+    print("----------------------------------------------------")
 
-    print("    ")
-    print("---------------------------------------------------------------------------------")
+    # Use glob_pattern to download only the file that ends with "_P1.jpg"
+    ia.download(item_id, glob_pattern="*_P1.jpg", destdir='downloads/hi_res/0_METADATAAA/chart_plates', no_directory=True, verbose=True)
 
-    if "USNOGP" in item_id:
-        file_name = '04_01_0000' + item_id[-2:] + '_P1.jpg'
-    else:
-        file_name = item_id.split('_')[0] + ".jpg"
-        if item_id == "g086_20211021" or  item_id == "g122_20211124":
-            file_name = item_id.split('_')[0] + "_rotated.jpg"
+    # After downloading, append the formatted date to the downloaded file name
+    download_dir = 'downloads/hi_res/0_METADATAAA/chart_plates'
+    
+    # Rename the file(s) that match the pattern
+    for file_name in os.listdir(download_dir):
+        if file_name.endswith("_P1.jpg"):
+            file_name_parts = file_name.rsplit('.', 1)  # Split the file name and extension
+            new_file_name = f"{formatted_date}-{item_id}.{file_name_parts[1]}"  # Append date before the extension
+            
+            # Get full paths
+            old_file_path = os.path.join(download_dir, file_name)
+            new_file_path = os.path.join(download_dir, new_file_name)
 
-    file = item.get_file(file_name)
-    file.download(f'downloads/hi_res/0_METADATAAA/solar_eclipse/{formatted_date}-{item_id}.jpg')
-
-
+            # Rename the file
+            os.rename(old_file_path, new_file_path)
+            print(f"Renamed {file_name} to {new_file_name}")
 
 
 
@@ -123,8 +157,6 @@ limited_list = ['USNOA_010BP_26IN_0196r','USNOA_010BP_26IN_0196v','USNOA_010BP_2
 #     item = ia.get_item(item_id)
 #     ia.download(item_id, formats="JPEG", destdir='downloads/hi_res/marginal_moon/', verbose=True)
 
-# for item_id in chart_plates:
-#     ia.download(item_id, formats="JPEG", destdir='downloads/hi_res/chart_plates', verbose=True)
 
 
 
