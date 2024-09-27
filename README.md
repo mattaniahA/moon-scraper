@@ -3,9 +3,9 @@ download images from archives, compress to a reasonable size, find circles using
 
 ## 1. download
 
-### bulk_dl_ia.py
+### dl_main.py
 bulk download source imgs from internet archive
-`python3 -W ignore bulk_dl_ia.py`
+`python3 -W ignore dl_main.py`
 ignore since u wanna be sooo loud
 
 ## 1.5 reorg repo (chart plates only!) 
