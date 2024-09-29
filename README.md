@@ -43,3 +43,10 @@ iterate through img directory (WITH NESTED FOLDERS) and compress images
 this will maintain the file structure
 `./nested_charts.sh`
 
+
+
+# earth orientation parametersss
+### eop/interpret_eop.py
+given a date, find and print the closest represented EOP data from JSON 
+
+
