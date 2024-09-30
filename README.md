@@ -48,3 +48,10 @@ this will maintain the file structure
 # earth orientation parametersss
 ### eop/interpret_eop.py
 given a date, find and print the closest represented EOP data from JSON 
+
+
+# running processing script
+open diff repo `/Users/mattaniah/repos/Processing/mshoney_circles` in vscode
+run processing code "SHIFT + P"
+view image in .toe file (since we're sending it over via syphon server)
+
