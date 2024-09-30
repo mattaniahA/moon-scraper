@@ -48,5 +48,3 @@ this will maintain the file structure
 # earth orientation parametersss
 ### eop/interpret_eop.py
 given a date, find and print the closest represented EOP data from JSON 
-
-
