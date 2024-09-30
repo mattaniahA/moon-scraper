@@ -1,7 +1,8 @@
-
 import json
 from datetime import datetime, timedelta
 import random
+import os
+import re
 
 def convert_to_datetime(eop_entry):
     year = int(eop_entry['time']['dateYear'])
@@ -32,14 +33,37 @@ def find_closest_4_eop_dates(dates_array, eop_data):
     
     return closest_4_eop
 
+def extract_dates_from_filenames(directory):
+    dates_array = []
+    # Regex to extract dates in the format YYYY_MM_DD from filenames
+    date_pattern = re.compile(r"(\d{4})_(\d{2})_(\d{2})")
+
+    # Iterate over files in the directory
+    for filename in os.listdir(directory):
+        match = date_pattern.search(filename)
+        if match:
+            # Reformat date as YYYY_MM_DD
+            date_str = f"{match.group(1)}_{match.group(2)}_{match.group(3)}"
+            dates_array.append(date_str)
+
+    return dates_array
 
 if __name__ == "__main__":
     # Load the original EOP data
     with open('eop-iau2000-1846-now.json', 'r') as file:
         eop_data = json.load(file)
 
-    dates_array = ["1901_05_17", "1950_07_22", "2000_01_15"]
-    
+    image_directory = "../downloads/hi_res/0_METADATAAA/solar_eclipse" 
+
+    # Extract dates from image filenames
+    dates_array = extract_dates_from_filenames(image_directory)
+
+    print("DATES ARRAY.LENGTH", len(dates_array))
+    print("unique dates", len(set(dates_array)))
+
+    print(dates_array)
+
+    # Find the closest 4 EOP dates
     closest_4_eop_data = find_closest_4_eop_dates(dates_array, eop_data)
 
     # Save the new JSON to a file
