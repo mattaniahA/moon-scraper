@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set the paths to the original and compressed image directories
-original_dir="/Users/mattaniah/repos/moon-scraper/downloads/hi_res/blueprints/tan"
-compressed_dir="/Users/mattaniah/repos/moon-scraper/downloads/lo_res/blueprints/tan"
+original_dir="/Users/mattaniah/repos/moon-scraper/downloads/hi_res/0_METADATAAA/solar_eclipse"
+compressed_dir="/Users/mattaniah/repos/moon-scraper/downloads/mid_res/solar_eclipse"
 
 if [ -d "$original_dir" ]; then
   if [ ! -d "$compressed_dir" ]; then
@@ -14,7 +14,7 @@ if [ -d "$original_dir" ]; then
     filename=$(basename "$image_file")
 
     # Compress the image using ffmpeg and save it to the compressed directory
-    ffmpeg -i "$image_file" -vf "scale=iw/3:ih/3" "$compressed_dir/$filename"
+    ffmpeg -i "$image_file" -vf "scale=iw/2:ih/2" "$compressed_dir/$filename"
 
     echo "Compressed $filename and saved to $compressed_dir"
   done
